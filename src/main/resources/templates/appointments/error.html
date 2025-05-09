@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Appointment Error</title>
+</head>
+<body>
+<h1>Error</h1>
+
+<p th:if="${error}" th:text="${error}" style="color: red;"></p>
+
+<a href="/appointments/create">
+    <button type="button">Create Appointment</button>
+</a>
+
+</body>
+</html>

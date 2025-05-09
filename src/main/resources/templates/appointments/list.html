@@ -1,0 +1,39 @@
+<h1>Appointments</h1>
+
+<!-- Display the current doctor filter -->
+<p th:if="${doctorId != null}">
+    Showing appointments for Doctor ID: <span th:text="${doctorId}"></span>
+</p>
+
+<table>
+    <thead>
+    <tr>
+        <th>Doctor</th>
+        <th>Clinic</th>
+        <th>Appointment Time</th>
+        <th>Patient Name</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="appointment : ${appointments}">
+        <td th:text="${appointment.doctor.firstName} + ' ' + ${appointment.doctor.lastName}"></td>
+        <td th:text="'Room ' + ${appointment.clinic.roomNumber} + ' - Floor ' + ${appointment.clinic.floor}"></td>
+        <td th:text="${appointment.appointmentTime}"></td>
+        <td th:text="${appointment.patientName}"></td>
+        <td>
+            <a th:href="@{/appointments/edit/{id}(id=${appointment.id})}">Edit</a>
+            <a th:href="@{/appointments/cancel/{id}(id=${appointment.id})}">Delete</a>
+        </td>
+    </tr>
+    <tr th:if="${appointments.isEmpty()}">
+        <td colspan="5">No se encontro citas.</td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <a href="/appointments/new">
+        <button type="button">Create New Appointment</button>
+    </a>
+</div>

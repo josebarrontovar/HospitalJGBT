@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Appointment</title>
+</head>
+<body>
+<h1>Create Appointment</h1>
+
+<form action="/appointments/create" method="post" th:object="${appointment}">
+    <div>
+        <label for="doctor">Doctor:</label>
+        <select id="doctor" th:field="*{doctor}">
+            <option th:each="doctor : ${doctors}" th:value="${doctor.id}" th:text="${doctor.firstName} + ' ' + ${doctor.lastName}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="clinic">Clinic:</label>
+        <select id="clinic" th:field="*{clinic}">
+            <option th:each="clinic : ${clinics}" th:value="${clinic.id}" th:text="'Room ' + ${clinic.roomNumber} + ' - Floor ' + ${clinic.floor}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="appointmentTime">Appointment Time:</label>
+        <input type="datetime-local" id="appointmentTime" th:field="*{appointmentTime}" required/>
+    </div>
+    <div>
+        <label for="patientName">Patient Name:</label>
+        <input type="text" id="patientName" th:field="*{patientName}" required/>
+    </div>
+    <div>
+        <button type="submit">Create Appointment</button>
+    </div>
+</form>
+
+<p th:if="${error}" th:text="${error}" style="color: red;"></p>
+
+<div>
+    <a href="/appointments/list">
+        <button type="button">All Appointments List</button>
+    </a>
+</div>
+
+<script th:if="${success}">
+    alert('Appointment created successfully!');
+</script>
+
+</body>
+</html>

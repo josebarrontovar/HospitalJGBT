@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Doctors List</title>
+</head>
+<body>
+<h1>Doctors List</h1>
+
+<ul>
+    <li th:each="doctor : ${doctors}">
+        <a th:href="@{/appointments/appointments/{doctorId}(doctorId=${doctor.id})}">
+            <span th:text="${doctor.firstName} + ' ' + ${doctor.lastName}"></span>
+        </a>
+    </li>
+</ul>v
+
+<div>
+    <a href="/appointments/new">
+        <button type="button">Create Appointment</button>
+    </a>
+</div>
+
+</body>
+</html>
