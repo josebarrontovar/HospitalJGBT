@@ -37,6 +37,12 @@ public class AppoinmentController {
     @PostMapping("/create")
     public String createAppointment(@ModelAttribute Appointment appointment, Model model) {
         try {
+
+            if (appointment.getAppointmentTime() == null || appointment.getPatientName() == null || appointment.getPatientName().isEmpty()) {
+                model.addAttribute("error", "Appointment time and nname are required.");
+                return "appointments/form";
+            }
+
             appointmentService.createAppointment(appointment);
             model.addAttribute("appointment", new Appointment());
             model.addAttribute("doctors", doctorRepository.findAll());
@@ -44,9 +50,14 @@ public class AppoinmentController {
             model.addAttribute("success", true);
             return "appointments/form";
         } catch (IllegalArgumentException e) {
-            model.addAttribute("error", "Existe una cita en esa fecha.");
+            model.addAttribute("error", "exist appointment in this date.");
             return "redirect:/appointments/error";
         }
+    }
+
+    @GetMapping("/error")
+    public String showErrorPage(Model model) {
+        return "appointments/error";
     }
 
     @GetMapping("/list")
